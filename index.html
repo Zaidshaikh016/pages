@@ -101,6 +101,7 @@
         .menu { display: none; border: 0; color: var(--hero-text); background: none; font-size: 22px; cursor: pointer; touch-action: manipulation; transition: color .3s ease, transform .3s var(--elastic); }
         .menu:active { transform: scale(.88) rotate(90deg); }
         .hero-copy { padding-top: 145px; max-width: 630px; }
+        .avatar { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 3px solid var(--hero-chip-border); box-shadow: 0 10px 26px rgba(0,0,0,.35); margin-bottom: 22px; }
         .eyebrow, .section-kicker { margin: 0 0 17px; font: 500 10px/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
         .eyebrow { color: var(--accent); }
         h1 { margin: 0; max-width: 600px; font: 700 clamp(46px, 6.4vw, 78px)/.98 var(--serif); letter-spacing: 0; }
@@ -211,6 +212,7 @@
             .shell { padding: 0 16px; }
             h1 { font-size: clamp(36px, 9.5vw, 52px); }
             .hero-copy { padding-top: 116px; }
+            .avatar { width: 76px; height: 76px; margin-bottom: 16px; }
             .intro { font-size: 13px; }
             .hero-stamp { bottom: 18px; gap: 14px; }
             .skill-grid { grid-template-columns: repeat(2, 1fr); }
@@ -239,6 +241,7 @@
             </div>
         </div>
         <div class="shell hero-copy">
+            <img class="avatar" src="me.png" alt="Zaid profile photo" onerror="this.style.display='none'">
             <p class="eyebrow">Portfolio / 2026</p>
             <h1>Hi, I’m Zaid.<br>I build <em>software</em><br>that works.</h1>
             <p class="intro">A recent graduate focused on software development, data, and practical AI. I enjoy breaking down real problems and building clear solutions.</p>
