@@ -310,14 +310,14 @@
             <div class="shell">
                 <div class="skills-head"><h3>What I work with</h3><p>Languages, platforms, and tools I use in projects.</p></div>
                 <div class="skill-grid">
-                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/python/3776AB" alt="Python logo">Python</div>
-                    <div class="skill"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java logo">Java</div>
-                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/claude/D97757" alt="Claude AI logo">Claude AI</div>
-                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL logo">MySQL</div>
-                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5 logo">HTML</div>
-                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/css/1572B6" alt="CSS logo">CSS</div>
-                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/git/F05032" alt="Git logo">Git</div>
-                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/github/181717" alt="GitHub logo">GitHub</div>
+                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/python/3776AB" alt="Python logo" onload="this.classList.add('loaded')">Python</div>
+                    <div class="skill"><img class="skill-logo" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java logo" onload="this.classList.add('loaded')">Java</div>
+                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/claude/D97757" alt="Claude AI logo" onload="this.classList.add('loaded')">Claude AI</div>
+                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL logo" onload="this.classList.add('loaded')">MySQL</div>
+                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML5 logo" onload="this.classList.add('loaded')">HTML</div>
+                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/css/1572B6" alt="CSS logo" onload="this.classList.add('loaded')">CSS</div>
+                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/git/F05032" alt="Git logo" onload="this.classList.add('loaded')">Git</div>
+                    <div class="skill"><img class="skill-logo" src="https://cdn.simpleicons.org/github/181717" alt="GitHub logo" onload="this.classList.add('loaded')">GitHub</div>
                 </div>
             </div>
         </section>
@@ -396,10 +396,21 @@
 
             var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+            // Global safety net: catch every image load, even ones without an inline onload handler.
+            document.addEventListener('load', function (e) {
+                if (e.target.tagName === 'IMG') e.target.classList.add('loaded');
+            }, true);
+
             // Mark already-cached images as loaded (onload may not fire again).
             document.querySelectorAll('img').forEach(function (img) {
                 if (img.complete && img.naturalWidth > 0) img.classList.add('loaded');
             });
+
+            // Failsafe: never let an image or reveal block stay hidden if something stalls.
+            setTimeout(function () {
+                document.querySelectorAll('img').forEach(function (img) { img.classList.add('loaded'); });
+                document.querySelectorAll('[data-reveal]').forEach(function (el) { el.classList.add('is-visible'); });
+            }, 2500);
 
             // Scroll-reveal for sections/cards.
             var revealTargets = document.querySelectorAll('[data-reveal]');
