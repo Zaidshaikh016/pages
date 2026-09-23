@@ -16,14 +16,30 @@
             --sky: #94c9dd;
             --mint: #a5d6c2;
             --line: rgba(16, 28, 44, .16);
+            --text: var(--ink);
+            --text-muted: #465363;
+            --text-faint: #586470;
+            --card-bg: #fff;
+            --card-border: #e3e6e6;
             --serif: "Playfair Display", Georgia, serif;
             --sans: "Manrope", sans-serif;
             --mono: "DM Mono", monospace;
         }
 
+        :root[data-theme="dark"] {
+            --paper: #0b1420;
+            --mist: #101d2b;
+            --line: rgba(255, 255, 255, .16);
+            --text: #eef1f4;
+            --text-muted: #b9c3cc;
+            --text-faint: #8fa0ab;
+            --card-bg: #14212e;
+            --card-border: rgba(255, 255, 255, .14);
+        }
+
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); }
+        body { margin: 0; background: var(--paper); color: var(--text); font-family: var(--sans); transition: background-color .25s ease, color .25s ease; }
         a { color: inherit; text-decoration: none; }
         img { display: block; width: 100%; object-fit: cover; }
         .shell { max-width: 1260px; margin: 0 auto; padding: 0 30px; }
@@ -36,8 +52,11 @@
         .nav { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; }
         .brand { font: 700 20px/1 var(--serif); letter-spacing: .02em; }
         .brand span { color: var(--sky); }
+        .nav-right { display: flex; align-items: center; gap: 22px; }
         .nav-links { display: flex; gap: 27px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
         .nav-links a:hover { color: var(--sky); }
+        .theme-toggle { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.4); border-radius: 50%; background: rgba(255,255,255,.1); color: white; font-size: 14px; cursor: pointer; transition: background-color .2s ease; }
+        .theme-toggle:hover { background: rgba(255,255,255,.22); }
         .menu { display: none; border: 0; color: white; background: none; font-size: 22px; }
         .hero-copy { padding-top: 145px; max-width: 630px; }
         .eyebrow, .section-kicker { margin: 0 0 17px; font: 500 10px/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
@@ -55,8 +74,8 @@
         .intro-grid { display: grid; grid-template-columns: 1fr 1.12fr; gap: 78px; align-items: center; }
         h2 { margin: 0; font: 700 clamp(30px, 3vw, 43px)/1.08 var(--serif); }
         h2 em { color: #43809a; }
-        .body-copy { margin: 21px 0; max-width: 500px; font-size: 14px; line-height: 1.8; color: #465363; }
-        .text-link { display: inline-flex; border-bottom: 1px solid var(--ink); padding-bottom: 4px; font: 700 11px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; }
+        .body-copy { margin: 21px 0; max-width: 500px; font-size: 14px; line-height: 1.8; color: var(--text-muted); }
+        .text-link { display: inline-flex; border-bottom: 1px solid currentColor; padding-bottom: 4px; font: 700 11px/1 var(--sans); letter-spacing: .06em; text-transform: uppercase; }
         .feature-photo { position: relative; min-height: 340px; background: linear-gradient(135deg, #a7c9d1, #3c6977); }
         .feature-photo img { height: 340px; }
         .photo-note { position: absolute; right: 18px; bottom: 16px; padding: 9px 11px; color: white; background: rgba(16, 28, 44, .85); font: 10px/1.3 var(--mono); }
@@ -64,15 +83,15 @@
         .skills { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 28px 0 31px; }
         .skills-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px; }
         .skills-head h3 { margin: 0; font: 700 17px var(--serif); }
-        .skills-head p { margin: 0; color: #697582; font: 10px var(--mono); }
+        .skills-head p { margin: 0; color: var(--text-faint); font: 10px var(--mono); }
         .skill-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
-        .skill { min-height: 105px; display: grid; place-items: center; align-content: center; gap: 10px; padding: 14px 5px; background: #fff; border: 1px solid #e3e6e6; font: 700 10px var(--sans); text-align: center; }
-        .skill-logo { width: 29px; height: 29px; object-fit: contain; }
+        .skill { min-height: 105px; display: grid; place-items: center; align-content: center; gap: 10px; padding: 14px 5px; background: var(--card-bg); border: 1px solid var(--card-border); font: 700 10px var(--sans); text-align: center; transition: background-color .25s ease, border-color .25s ease; }
+        .skill-logo { width: 29px; height: 29px; object-fit: contain; background: #fff; border-radius: 6px; padding: 3px; }
 
         .work { background: var(--mist); }
         .section-title { display: flex; align-items: end; justify-content: space-between; margin-bottom: 28px; }
         .section-title h2 { font-size: 34px; }
-        .section-title p { margin: 0; max-width: 300px; text-align: right; font-size: 11px; line-height: 1.5; color: #586470; }
+        .section-title p { margin: 0; max-width: 300px; text-align: right; font-size: 11px; line-height: 1.5; color: var(--text-faint); }
         .work-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
         .project { color: white; background: var(--ink); min-height: 255px; position: relative; overflow: hidden; }
         .project img { position: absolute; inset: 0; height: 100%; opacity: .75; transition: transform .4s ease; }
@@ -95,13 +114,13 @@
         .number { color: var(--mint); font: 11px var(--mono); }
 
         .hobby-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-        .hobby { min-height: 150px; display: grid; place-items: center; align-content: center; gap: 12px; padding: 20px 14px; background: #fff; border: 1px solid #e3e6e6; text-align: center; }
+        .hobby { min-height: 150px; display: grid; place-items: center; align-content: center; gap: 12px; padding: 20px 14px; background: var(--card-bg); border: 1px solid var(--card-border); text-align: center; transition: background-color .25s ease, border-color .25s ease; }
         .hobby-icon { width: 40px; height: 40px; display: grid; place-items: center; font-size: 26px; color: #3b7e9c; }
         .hobby-icon img { width: 40px; height: 40px; object-fit: contain; }
         .hobby h3 { margin: 0; font: 700 14px var(--sans); }
-        .hobby p { margin: 0; font-size: 11px; line-height: 1.6; color: #586470; }
+        .hobby p { margin: 0; font-size: 11px; line-height: 1.6; color: var(--text-faint); }
         .footer { display: flex; justify-content: space-between; gap: 30px; align-items: center; padding: 35px 0; }
-        .footer p { margin: 0; font-size: 11px; color: #63707b; }
+        .footer p { margin: 0; font-size: 11px; color: var(--text-faint); }
         .socials { display: flex; gap: 13px; font: 700 11px var(--sans); }
         .socials a:hover { color: #43809a; }
 
@@ -135,10 +154,15 @@
         </div>
         <div class="shell nav">
             <a class="brand" href="#top">Z<span>S</span></a>
-            <nav class="nav-links" aria-label="Main navigation">
-                <a href="#about">About</a><a href="#learning">Projects</a><a href="#learning">Learning</a><a href="#contact">Contact</a>
-            </nav>
-            <button class="menu" aria-label="Open navigation">+</button>
+            <div class="nav-right">
+                <nav class="nav-links" aria-label="Main navigation">
+                    <a href="#about">About</a><a href="#learning">Projects</a><a href="#learning">Learning</a><a href="#contact">Contact</a>
+                </nav>
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+                    <i class="fa-solid fa-moon" aria-hidden="true"></i>
+                </button>
+                <button class="menu" aria-label="Open navigation">+</button>
+            </div>
         </div>
         <div class="shell hero-copy">
             <p class="eyebrow">Portfolio / 2026</p>
@@ -207,5 +231,28 @@
     <footer class="shell footer" id="contact">
         <a class="brand" href="#top">Z<span>S</span></a><p>Open to entry-level software opportunities.</p><div class="socials"><a href="mailto:hello@example.com">Email</a><a href="#top">LinkedIn</a><a href="#top">GitHub</a></div>
     </footer>
+    <script>
+        (function () {
+            var root = document.documentElement;
+            var toggle = document.getElementById('themeToggle');
+            var icon = toggle.querySelector('i');
+
+            function applyTheme(theme) {
+                root.setAttribute('data-theme', theme);
+                icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+                toggle.setAttribute('aria-pressed', theme === 'dark');
+            }
+
+            var saved = localStorage.getItem('theme');
+            var preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            applyTheme(saved || preferred);
+
+            toggle.addEventListener('click', function () {
+                var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', next);
+                applyTheme(next);
+            });
+        })();
+    </script>
 </body>
 </html>
