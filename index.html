@@ -39,6 +39,7 @@
             --hero-chip-border: rgba(16, 28, 44, .3);
             --hero-invert-bg: var(--ink);
             --hero-invert-text: #fff;
+            --card-hover-bg: #f2f4f6;
         }
 
         :root[data-theme="dark"] {
@@ -64,6 +65,7 @@
             --hero-chip-border: rgba(255, 255, 255, .4);
             --hero-invert-bg: #fff;
             --hero-invert-text: var(--ink);
+            --card-hover-bg: #1c2b3a;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -146,16 +148,16 @@
         .project h3 { margin: 0; font: 700 20px var(--serif); }
         .project-tag { position: absolute; z-index: 1; top: 13px; right: 13px; width: 27px; height: 27px; display: grid; place-items: center; background: white; color: var(--ink); font-size: 14px; }
 
-        .building { color: white; background: var(--ink); }
-        .building .section-title p { color: #b1bfca; }
-        .learning-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.18); }
-        .learning-card { aspect-ratio: 1; min-height: 0; display: flex; flex-direction: column; padding: 22px; background: var(--ink); touch-action: manipulation; transition: background-color .2s ease, transform .35s var(--elastic); }
-        .learning-card:hover { background: #1e3d4d; transform: translateY(-4px); }
+        .building { color: var(--text); background: var(--mist); transition: background-color .3s ease, color .3s ease; }
+        .building .section-title p { color: var(--text-faint); }
+        .learning-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--card-border); border: 1px solid var(--card-border); transition: background-color .3s ease, border-color .3s ease; }
+        .learning-card { aspect-ratio: 1; min-height: 0; display: flex; flex-direction: column; padding: 22px; background: var(--card-bg); touch-action: manipulation; transition: background-color .2s ease, transform .35s var(--elastic); }
+        .learning-card:hover { background: var(--card-hover-bg); transform: translateY(-4px); }
         .learning-card:active { transform: scale(.96); }
         .learning-card img, .app-fallback { width: 76px; height: 76px; object-fit: contain; background: white; }
         .app-fallback { display: grid; place-items: center; color: var(--ink); font: 700 20px/1 var(--sans); }
         .learning-card h3 { margin: auto 0 8px; font: 700 19px var(--serif); }
-        .learning-card p { margin: 0; color: #c5d1da; font-size: 11px; line-height: 1.65; }
+        .learning-card p { margin: 0; color: var(--text-faint); font-size: 11px; line-height: 1.65; }
         .number { color: var(--mint); font: 11px var(--mono); }
 
         .hobby-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
