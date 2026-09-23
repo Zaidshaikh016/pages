@@ -24,6 +24,7 @@
             --serif: "Playfair Display", Georgia, serif;
             --sans: "Manrope", sans-serif;
             --mono: "DM Mono", monospace;
+            --elastic: cubic-bezier(.34, 1.56, .64, 1);
         }
 
         :root[data-theme="dark"] {
@@ -37,16 +38,24 @@
             --card-border: rgba(255, 255, 255, .14);
         }
 
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; overscroll-behavior-y: none; }
         body { margin: 0; background: var(--paper); color: var(--text); font-family: var(--sans); transition: background-color .25s ease, color .25s ease; }
         a { color: inherit; text-decoration: none; }
         img { display: block; width: 100%; object-fit: cover; }
         .shell { max-width: 1260px; margin: 0 auto; padding: 0 30px; }
 
         .hero { color: white; background: #142033; min-height: 670px; position: relative; overflow: hidden; }
-        .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13, 26, 43, .94) 0%, rgba(13, 26, 43, .6) 43%, rgba(13, 26, 43, .12) 77%); }
-        .hero-photo { position: absolute; inset: 0; height: 100%; opacity: .94; background: linear-gradient(126deg, #17354d 0%, #2a5b70 48%, #d48e62 100%); }
+        .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13, 26, 43, .95) 0%, rgba(13, 26, 43, .68) 48%, rgba(13, 26, 43, .22) 82%); }
+        .hero-photo {
+            position: absolute; inset: 0; height: 100%; opacity: .96;
+            background-image:
+                radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+                radial-gradient(ellipse 60% 55% at 28% 18%, rgba(148,201,221,.28), transparent 60%),
+                linear-gradient(135deg, #101d30 0%, #17354d 38%, #2c5f76 68%, #c98a5f 100%);
+            background-size: 24px 24px, cover, cover;
+            background-position: 0 0, center, center;
+        }
         .hero-photo img { height: 100%; object-position: center 45%; }
         .nav, .hero-copy { position: relative; z-index: 1; }
         .nav { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; }
@@ -55,17 +64,20 @@
         .nav-right { display: flex; align-items: center; gap: 22px; }
         .nav-links { display: flex; gap: 27px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
         .nav-links a:hover { color: var(--sky); }
-        .theme-toggle { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.4); border-radius: 50%; background: rgba(255,255,255,.1); color: white; font-size: 14px; cursor: pointer; transition: background-color .2s ease; }
+        .theme-toggle { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.4); border-radius: 50%; background: rgba(255,255,255,.1); color: white; font-size: 14px; cursor: pointer; touch-action: manipulation; transition: background-color .2s ease, transform .3s var(--elastic); }
         .theme-toggle:hover { background: rgba(255,255,255,.22); }
-        .menu { display: none; border: 0; color: white; background: none; font-size: 22px; }
+        .theme-toggle:active { transform: scale(.88); }
+        .menu { display: none; border: 0; color: white; background: none; font-size: 22px; cursor: pointer; touch-action: manipulation; transition: transform .3s var(--elastic); }
+        .menu:active { transform: scale(.88) rotate(90deg); }
         .hero-copy { padding-top: 145px; max-width: 630px; }
         .eyebrow, .section-kicker { margin: 0 0 17px; font: 500 10px/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
         .eyebrow { color: var(--sky); }
         h1 { margin: 0; max-width: 600px; font: 700 clamp(46px, 6.4vw, 78px)/.98 var(--serif); letter-spacing: 0; }
         h1 em { color: #b8d6e7; }
         .intro { max-width: 480px; margin: 25px 0 30px; font-size: 14px; line-height: 1.75; color: #e7eef4; }
-        .button { display: inline-flex; align-items: center; gap: 10px; padding: 13px 18px; border: 1px solid white; font: 700 11px/1 var(--sans); letter-spacing: .04em; text-transform: uppercase; transition: .2s ease; }
-        .button:hover { background: white; color: var(--ink); }
+        .button { display: inline-flex; align-items: center; gap: 10px; padding: 13px 18px; border: 1px solid white; font: 700 11px/1 var(--sans); letter-spacing: .04em; text-transform: uppercase; touch-action: manipulation; transition: background-color .2s ease, color .2s ease, transform .35s var(--elastic); }
+        .button:hover { background: white; color: var(--ink); transform: translateY(-2px) scale(1.03); }
+        .button:active { transform: scale(.95); }
         .arrow { font-size: 17px; line-height: 10px; }
         .hero-stamp { position: absolute; z-index: 1; right: 31px; bottom: 31px; display: flex; gap: 20px; align-items: center; font: 10px/1.4 var(--mono); text-align: right; }
         .hero-stamp strong { display: block; font-family: var(--sans); font-size: 20px; }
@@ -85,7 +97,9 @@
         .skills-head h3 { margin: 0; font: 700 17px var(--serif); }
         .skills-head p { margin: 0; color: var(--text-faint); font: 10px var(--mono); }
         .skill-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
-        .skill { min-height: 105px; display: grid; place-items: center; align-content: center; gap: 10px; padding: 14px 5px; background: var(--card-bg); border: 1px solid var(--card-border); font: 700 10px var(--sans); text-align: center; transition: background-color .25s ease, border-color .25s ease; }
+        .skill { min-height: 105px; display: grid; place-items: center; align-content: center; gap: 10px; padding: 14px 5px; background: var(--card-bg); border: 1px solid var(--card-border); font: 700 10px var(--sans); text-align: center; touch-action: manipulation; transition: background-color .25s ease, border-color .25s ease, transform .35s var(--elastic); }
+        .skill:hover { transform: translateY(-4px); }
+        .skill:active { transform: scale(.96); }
         .skill-logo { width: 29px; height: 29px; object-fit: contain; background: #fff; border-radius: 6px; padding: 3px; }
 
         .work { background: var(--mist); }
@@ -93,9 +107,10 @@
         .section-title h2 { font-size: 34px; }
         .section-title p { margin: 0; max-width: 300px; text-align: right; font-size: 11px; line-height: 1.5; color: var(--text-faint); }
         .work-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .project { color: white; background: var(--ink); min-height: 255px; position: relative; overflow: hidden; }
-        .project img { position: absolute; inset: 0; height: 100%; opacity: .75; transition: transform .4s ease; }
+        .project { color: white; background: var(--ink); min-height: 255px; position: relative; overflow: hidden; touch-action: manipulation; transition: transform .35s var(--elastic); }
+        .project img { position: absolute; inset: 0; height: 100%; opacity: .75; transition: transform .5s var(--elastic); }
         .project:hover img { transform: scale(1.06); }
+        .project:active { transform: scale(.97); }
         .project::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 32%, rgba(10, 21, 35, .9)); }
         .project-copy { position: absolute; z-index: 1; inset: auto 16px 15px; }
         .project-type { margin: 0 0 6px; color: #a9d5e7; font: 9px var(--mono); text-transform: uppercase; }
@@ -105,8 +120,9 @@
         .building { color: white; background: var(--ink); }
         .building .section-title p { color: #b1bfca; }
         .learning-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.18); }
-        .learning-card { aspect-ratio: 1; min-height: 0; display: flex; flex-direction: column; padding: 22px; background: var(--ink); transition: background .2s ease; }
-        .learning-card:hover { background: #1e3d4d; }
+        .learning-card { aspect-ratio: 1; min-height: 0; display: flex; flex-direction: column; padding: 22px; background: var(--ink); touch-action: manipulation; transition: background-color .2s ease, transform .35s var(--elastic); }
+        .learning-card:hover { background: #1e3d4d; transform: translateY(-4px); }
+        .learning-card:active { transform: scale(.96); }
         .learning-card img, .app-fallback { width: 76px; height: 76px; object-fit: contain; background: white; }
         .app-fallback { display: grid; place-items: center; color: var(--ink); font: 700 20px/1 var(--sans); }
         .learning-card h3 { margin: auto 0 8px; font: 700 19px var(--serif); }
@@ -114,7 +130,9 @@
         .number { color: var(--mint); font: 11px var(--mono); }
 
         .hobby-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-        .hobby { min-height: 150px; display: grid; place-items: center; align-content: center; gap: 12px; padding: 20px 14px; background: var(--card-bg); border: 1px solid var(--card-border); text-align: center; transition: background-color .25s ease, border-color .25s ease; }
+        .hobby { min-height: 150px; display: grid; place-items: center; align-content: center; gap: 12px; padding: 20px 14px; background: var(--card-bg); border: 1px solid var(--card-border); text-align: center; touch-action: manipulation; transition: background-color .25s ease, border-color .25s ease, transform .35s var(--elastic); }
+        .hobby:hover { transform: translateY(-4px); }
+        .hobby:active { transform: scale(.96); }
         .hobby-icon { width: 40px; height: 40px; display: grid; place-items: center; font-size: 26px; color: #3b7e9c; }
         .hobby-icon img { width: 40px; height: 40px; object-fit: contain; }
         .hobby h3 { margin: 0; font: 700 14px var(--sans); }
@@ -124,11 +142,24 @@
         .socials { display: flex; gap: 13px; font: 700 11px var(--sans); }
         .socials a:hover { color: #43809a; }
 
+        @keyframes navDrop {
+            from { opacity: 0; transform: translateY(-12px) scaleY(.9); }
+            to { opacity: 1; transform: translateY(0) scaleY(1); }
+        }
+
         @media (max-width: 760px) {
             .shell { padding: 0 20px; }
             .hero { min-height: 700px; }
-            .hero::after { background: linear-gradient(90deg, rgba(13,26,43,.92), rgba(13,26,43,.43)), linear-gradient(0deg, rgba(13,26,43,.82), transparent 58%); }
-            .nav-links { display: none; }
+            .hero::after { background: linear-gradient(90deg, rgba(13,26,43,.94), rgba(13,26,43,.55)), linear-gradient(0deg, rgba(13,26,43,.85), transparent 58%); }
+            .nav-links {
+                display: none; position: absolute; top: 60px; left: 0; right: 0; z-index: 5;
+                flex-direction: column; gap: 2px; padding: 10px; text-align: left;
+                background: rgba(10, 20, 33, .96); border: 1px solid rgba(255,255,255,.14); border-radius: 12px;
+                transform-origin: top center;
+            }
+            .nav-links.is-open { display: flex; animation: navDrop .4s var(--elastic); }
+            .nav-links a { padding: 12px 14px; border-radius: 8px; }
+            .nav-links a:active { background: rgba(255,255,255,.1); }
             .menu { display: block; }
             .hero-copy { padding-top: 130px; }
             .hero-stamp { left: 20px; right: auto; bottom: 26px; text-align: left; }
@@ -144,6 +175,18 @@
             .section-title p { margin-top: 10px; text-align: left; }
             .footer { align-items: flex-start; flex-direction: column; }
         }
+
+        @media (max-width: 480px) {
+            .shell { padding: 0 16px; }
+            h1 { font-size: clamp(36px, 9.5vw, 52px); }
+            .hero-copy { padding-top: 116px; }
+            .intro { font-size: 13px; }
+            .hero-stamp { bottom: 18px; gap: 14px; }
+            .skill-grid { grid-template-columns: repeat(2, 1fr); }
+            .learning-grid { grid-template-columns: 1fr; }
+            .work-grid { grid-template-columns: 1fr; }
+            .hobby-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -155,13 +198,13 @@
         <div class="shell nav">
             <a class="brand" href="#top">Z<span>S</span></a>
             <div class="nav-right">
-                <nav class="nav-links" aria-label="Main navigation">
+                <nav class="nav-links" id="navLinks" aria-label="Main navigation">
                     <a href="#about">About</a><a href="#learning">Projects</a><a href="#learning">Learning</a><a href="#contact">Contact</a>
                 </nav>
                 <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
                     <i class="fa-solid fa-moon" aria-hidden="true"></i>
                 </button>
-                <button class="menu" aria-label="Open navigation">+</button>
+                <button class="menu" id="navMenuToggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="navLinks">+</button>
             </div>
         </div>
         <div class="shell hero-copy">
@@ -251,6 +294,29 @@
                 var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
                 localStorage.setItem('theme', next);
                 applyTheme(next);
+            });
+
+            var navToggle = document.getElementById('navMenuToggle');
+            var navLinks = document.getElementById('navLinks');
+
+            function closeNav() {
+                navLinks.classList.remove('is-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.textContent = '+';
+            }
+
+            navToggle.addEventListener('click', function () {
+                var isOpen = navLinks.classList.toggle('is-open');
+                navToggle.setAttribute('aria-expanded', String(isOpen));
+                navToggle.textContent = isOpen ? '×' : '+';
+            });
+
+            navLinks.addEventListener('click', function (e) {
+                if (e.target.tagName === 'A') closeNav();
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeNav();
             });
         })();
     </script>
